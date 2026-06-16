@@ -1,104 +1,138 @@
-[Etsy Product Scraper](https://apify.com/yesintelligent/etsy-product-scraper?fpr=data)
+[Etsy Product Scraper](https://apify.com/getdataforme/Etsy-product-scraper?fpr=data)
 
-# Etsy Product Scraper - Extract Etsy Product Data with Images & Reviews
+---
 
-Effortlessly scrape detailed product information from Etsy including prices, images, reviews, and seller details. Our powerful Etsy scraper bypasses anti-bot measures to extract accurate, structured data for market research, price monitoring, and competitor analysis.
+# Land Broker Scraper
 
-## Key Features
+Extract Broker Information from Land.com Effortlessly
 
-- **Comprehensive Data Extraction**: Get product titles, descriptions, prices, images, reviews, seller info, and more
-- **Anti-Detection Technology**: Overcomes Etsy's bot protection systems
-- **Rich Media Collection**: Extract all product images and customer reviews
-- **Flexible Configuration**: Adjustable concurrency, timeouts, and data selection
-- **Structured Output**: Clean JSON data ready for analysis or integration
-- **Proxy Support**: Built-in residential proxy rotation for reliable scraping
-- **Easy Integration**: Works via Apify Platform or API
+The **Land Broker Scraper** is an Apify actor designed to extract detailed broker information from [Land.com](https://land.com). It enables you to gather essential data, such as broker names, contact information, company details, and listing history, in a structured format.
 
-## Use Cases
+**Note**: Please activate Proxy to avoid restrictions or blockages during scraping. Running the scraper without a proxy may result in incomplete or failed extractions.
 
-- **Market Research**: Analyze product trends, pricing strategies, and seller performance
-- **Price Monitoring**: Track competitor pricing and automate repricing strategies
-- **Catalog Building**: Create comprehensive product databases for affiliate marketing
-- **Sentiment Analysis**: Study customer reviews to understand product reception
-- **Inventory Tracking**: Monitor product availability and seller inventory changes
-- **Competitor Analysis**: Compare product offerings, features, and customer feedback
+---
 
-## How to Scrape Etsy Products
+## How This Land Broker Scraper Works
 
-1. **Prepare Product URLs**: Collect the Etsy product URLs you want to scrape
-2. **Configure Options**: Set parameters like concurrency, proxy settings, and data fields
-3. **Run the Scraper**: Execute via Apify Platform or API
-4. **Get Structured Data**: Receive clean JSON data ready for analysis
+1. **Input Parameters**
 
-## Input Parameters
-
-### Required
-
-- **productUrls**: List of Etsy product URLs (one per line)
-
-### Optional
-
-- **proxyConfiguration**: Proxy settings for IP rotation
-- **maxConcurrency**: Concurrent browser instances (1-10, default: 3)
-- **requestTimeout**: Request timeout in seconds (30-300, default: 45)
-- **maxRetries**: Failed request retries (0-10, default: 2)
-- **includeReviews**: Extract customer reviews (default: true)
-- **includeImages**: Extract product images (default: true)
-- **maxReviews**: Max reviews per product (0-200, default: 5)
-
-## Output Data Format
+- Provide the target location and the maximum number of brokers to scrape using the simple JSON input format:
 
 ```
 {
-  "title": "Handmade Ceramic Mug",
-  "sellerName": "Artisan Pottery Shop",
-  "price": "24.99",
-  "currency": "USD",
-  "description": "Beautiful handmade ceramic mug...",
-  "images": ["https://image1.jpg", "https://image2.jpg"],
-  "reviews": [
-    {
-      "rating": 5,
-      "reviewer": "Happy Customer",
-      "comment": "Love this mug!"
-    }
-  ],
-  "averageRating": 4.8,
-  "reviewCount": 127
+    "location": "Bear-DE",
+    "maxItems": 20
+}
+```
+- **Location**: Enter the location in the `"location"` field (e.g., `"Bear-DE"`).
+- **Max Items**: Set the maximum number of broker profiles to fetch in the `"maxItems"` field (e.g., `20`).
+2. **Run the Scraper**
+
+- Once the input is set, start the scraper. The data will be fetched and returned in JSON format.
+3. **Retrieve Results**
+
+- Get detailed broker information, including their name, contact details, company, and historical listing performance.
+
+---
+
+## Input Parameters
+
+**1. Location**
+
+- *Type*: String
+- *Description*: Specify the target location for scraping brokers.
+- *Example*: `"Bear-DE"`
+
+**2. Max Items**
+
+- *Type*: Integer
+- *Description*: Set the maximum number of broker profiles to retrieve.
+- *Example*: `20`
+
+---
+
+## Output
+
+When the scraper runs successfully, you will receive the following data for each broker:
+
+```
+{
+    "url": "https://www.land.com/member/octavia-samuels/1319572/listings/",
+    "Account ID": 1319572,
+    "Name": "Octavia Samuels",
+    "Email": "OctaviaSamuels@c21gk.com",
+    "Phone (Office)": "",
+    "Company": "CENTURY 21 Gold Key Realty",
+    "Address": "600 Peoples Plaza, Newark, DE 19702",
+    "Active": "Yes",
+    "Listings in Last 5 Years": 40,
+    "Price Range in Last 5 Years": "$68000 - $749900"
 }
 ```
 
-## Getting Started
+### Output Fields Explained
 
-### Via Apify Platform
+- **url**: URL to the broker's listing page on Land.com.
+- **Account ID**: Unique identifier for the broker.
+- **Name**: Full name of the broker.
+- **Email**: Broker's email address.
+- **Phone (Office)**: Broker’s office phone number (if available).
+- **Company**: Name of the broker's affiliated company.
+- **Address**: The broker's company address.
+- **Active**: Indicates whether the broker is currently active.
+- **Listings in Last 5 Years**: Number of property listings posted by the broker in the past 5 years.
+- **Price Range in Last 5 Years**: Range of property prices for the broker's listings over the past 5 years.
 
-1. Visit [Apify Store](https://apify.com/store)
-2. Search for "Etsy Product Scraper"
-3. Click "Try for free" or "Run"
-4. Enter your Etsy product URLs
-5. Configure settings and run
+---
 
-### Via API
+## Example Usage
+
+1. **Input**:
 
 ```
-curl -X POST https://api.apify.com/v2/acts/YOUR_USERNAME~ETSY-SCRAPER/runs \
-  -H "Authorization: Bearer YOUR_API_TOKEN" \
-  -H "Content-Type: application/json" \
-  -d '{"productUrls": "https://www.etsy.com/listing/123456789/product"}'
+{
+    "location": "Bear-DE",
+    "maxItems": 20
+}
+```
+2. **Output**:
+
+```
+{
+    "url": "https://www.land.com/member/octavia-samuels/1319572/listings/",
+    "Account ID": 1319572,
+    "Name": "Octavia Samuels",
+    "Email": "OctaviaSamuels@c21gk.com",
+    "Phone (Office)": "",
+    "Company": "CENTURY 21 Gold Key Realty",
+    "Address": "600 Peoples Plaza, Newark, DE 19702",
+    "Active": "Yes",
+    "Listings in Last 5 Years": 40,
+    "Price Range in Last 5 Years": "$68000 - $749900"
+}
 ```
 
-## Why Choose Our Etsy Scraper?
+---
 
-- **Reliable Data Extraction**: Handles Etsy's anti-scraping measures
-- **Fast Processing**: Optimized for quick data retrieval
-- **Detailed Information**: Captures all relevant product details
-- **Regular Updates**: Maintained to work with Etsy's latest changes
-- **Technical Support**: Assistance from Apify experts
+## Proxy Configuration
 
-## Pricing
+To avoid rate-limiting or blocking issues, enable proxy settings when running the scraper. Apify’s proxy configuration ensures uninterrupted data extraction.
 
-- Pay-per-use with transparent Apify platform pricing
-- Free tier available for testing
-- Volume discounts for enterprise users
+---
 
-Start scraping Etsy product data today and gain valuable insights for your business!
+## Support
+
+For any queries, bug reports, or custom requirements, please reach out to us:
+
+- **Email**: [support@getdataforme.com](mailto:support@getdataforme.com)
+- **Contact Form**: [Get Data For Me Contact](https://getdataforme.com/contact/)
+
+When contacting support, include "Custom Support" in the subject for faster assistance.
+
+---
+
+Start extracting valuable broker data from **Land.com** with the **Land Broker Scraper** today!
+
+---
+
+Let me know if you’d like to tweak or enhance anything further! 😊
